@@ -51,6 +51,9 @@ The Library Management System allows librarians to manage books, patrons, and bo
 ##### Transaction Management:
 •	Declarative transaction management using Spring's @Transactional annotation
 
+##### Caching:
+● Utilize Spring to cache frequently accessed data, such as book details or patron information, to improve system performance.
+
 ##### Testing:
 •  Unit tests are added to each Controller. You can run these tests using your IDE or from the command line:
 ```sh
