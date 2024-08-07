@@ -76,7 +76,7 @@ Create a mySQL database called “libraryManagementSystemDB” or configure your
 3.	Run the Application.
 
 ### Postman Testing
-Provided a postman.json file (.json), import it into postman to access and test the application endpoints.
+Provided a postman.json file (Library Management System.postman_collection.json), import it into postman to access and test the application endpoints.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
