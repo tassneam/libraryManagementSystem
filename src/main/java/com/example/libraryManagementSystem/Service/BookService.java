@@ -6,6 +6,8 @@ import com.example.libraryManagementSystem.Repository.BookRepository;
 import com.example.libraryManagementSystem.Response.UpdateResponse;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,10 +22,12 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
+    @Cacheable(value = "books")
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
     }
 
+    @Cacheable(value = "books", key = "#id")
     public Optional<Book> getById(Integer id) {
         Optional<Book> oldBook = bookRepository.findById(id);
         if (oldBook.isPresent()) {
@@ -38,6 +42,7 @@ public class BookService {
         return bookRepository.save(book);
     }
 
+    @CacheEvict(value = "books", key = "#id")
     @Transactional
     public UpdateResponse updateBookById(Integer id, Book updatedBook) {
         Optional<Book> oldBook = bookRepository.findById(id);
@@ -74,6 +79,7 @@ public class BookService {
         }
     }
 
+    @CacheEvict(value = "books", key = "#id")
     public void deleteBookById(Integer id) {
         Optional<Book> oldBook = bookRepository.findById(id);
         if (oldBook.isPresent()) {

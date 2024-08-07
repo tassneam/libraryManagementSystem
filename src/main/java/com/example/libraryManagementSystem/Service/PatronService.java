@@ -6,6 +6,8 @@ import com.example.libraryManagementSystem.Repository.PatronRepository;
 import com.example.libraryManagementSystem.Response.UpdateResponse;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,10 +22,12 @@ public class PatronService {
         this.patronRepository = patronRepository;
     }
 
+    @Cacheable(value = "patrons")
     public List<Patron> getAllPatrons() {
         return patronRepository.findAll();
     }
 
+    @Cacheable(value = "patrons", key = "#id")
     public Optional<Patron> getById(Integer id) {
         Optional<Patron> oldPatron = patronRepository.findById(id);
         if (oldPatron.isPresent()) {
@@ -39,6 +43,7 @@ public class PatronService {
         return patronRepository.save(patron);
     }
 
+    @CacheEvict(value = "patrons", key = "#id")
     @Transactional
     public UpdateResponse updatePatronById(Integer id, Patron updatedPatron) {
         Optional<Patron> oldPatron = patronRepository.findById(id);
@@ -67,6 +72,7 @@ public class PatronService {
         }
     }
 
+    @CacheEvict(value = "patrons", key = "#id")
     public void deletePatronById(Integer id) {
         Optional<Patron> oldPatron = patronRepository.findById(id);
         if (oldPatron.isPresent()) {
