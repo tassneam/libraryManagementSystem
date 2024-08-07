@@ -51,6 +51,11 @@ The Library Management System allows librarians to manage books, patrons, and bo
 ##### Transaction Management:
 •	Declarative transaction management using Spring's @Transactional annotation
 
+##### Testing:
+•  Unit tests are added to each Controller. You can run these tests using your IDE or from the command line:
+```sh
+mvn test
+```
 
 ## Setting Up the Project
 •	Java 22
